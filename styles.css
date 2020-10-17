@@ -10,23 +10,26 @@ body {
     align-items: space-between;
     justify-content: center;
     margin: 0 auto;
-    max-width: 1000px;
+    max-width: 1300px;
+    width: 100%;
 }
 
 .pokemon-preview {
-	background-color: #eee;
 	border-radius: 20px;
 	box-shadow: 0 3px 15px rgba(100, 100, 100, 0.5);
-	margin: 10px;
-	padding: 20px;
+    margin: 10px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 5px;
+	padding-bottom: 5px;
 	text-align: center;
 }
 
 .pokemon-preview .preview-pic-container {
 	background-color: rgba(255, 255, 255, 0.6);
 	border-radius: 50%;
-	width: 120px;
-	height: 120px;
+	width: 130px;
+	height: 130px;
 	text-align: center;
 }
 
@@ -46,6 +49,7 @@ body {
 }
 #pagination{
     text-align: center;
+    padding: 20px;
 }
 
 /* Header/nav controls */
