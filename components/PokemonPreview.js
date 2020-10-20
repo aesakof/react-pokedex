@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { Link } from "react-router-dom"
 
 //move this to a data file or something
 const typeColors = {
@@ -59,26 +60,27 @@ function PokemonPreview(props) {
     }
 
     return (
-        <div style={backgroundStyle()} className="pokemon-preview">
-            <h3>{name}</h3>
-                {
-                    pokemonInfo === null ?
-                    <h5>Loading pokemon data...</h5> :
-                    <>
-                        <div className="preview-pic-container">
-                            <img className="preview-pic" src={`https://pokeres.bastionbot.org/images/pokemon/${pokemonInfo.id}.png`} />
-                        </div>
-                        <h5>#{pokemonInfo.id}</h5>
-
-                        {
-                            types.length == 2 ?
+        <>
+            {
+                pokemonInfo === null ?
+                <h5>Loading pokemon data...</h5> :
+                <Link to={`/pokemon/${pokemonInfo.id}`} style={backgroundStyle()} className="pokemon-preview">
+                    <div>
+                        <h3>{name}</h3>
+                            <div className="preview-pic-container">
+                                <img className="preview-pic" src={`https://pokeres.bastionbot.org/images/pokemon/${pokemonInfo.id}.png`} />
+                            </div>
+                            <h5>#{pokemonInfo.id}</h5>
+                            {
+                                types.length == 2 ?
                                 <h5>Types: {types[0]} / {types[1]}</h5> :
                                 <h5>Type: {types[0]}</h5>
-                        }
-                        
-                    </>
-                }
-        </div>
+                            }
+                                    
+                    </div>
+                </Link>
+            }
+        </>
     )
 }
 
