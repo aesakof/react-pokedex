@@ -15,6 +15,9 @@ body {
 }
 
 .pokemon-detail {
+    display: grid;
+    grid-template-columns: 200px 325px;
+
     color: black;
 	border-radius: 20px;
 	box-shadow: 0 3px 15px rgba(100, 100, 100, 0.5);
@@ -28,7 +31,12 @@ body {
     width: 1000px;
 }
 
+.pokemon-detail .detail-header {
+    grid-column: 1/4;
+}
+
 .pokemon-detail .detail-pic-container {
+    grid-column: 1/2;
 	background-color: rgba(255, 255, 255, 0.6);
 	border-radius: 50%;
 	width: 400px;
@@ -38,6 +46,21 @@ body {
 .pokemon-detail .detail-pic-container .detail-pic {
 	margin-top: 20px;
 	max-width: 90%;
+}
+
+.pokemon-detail .detail-main-info {
+    grid-column: 3/4;
+    text-align: left;
+}
+
+.ability {
+    list-style-type: none;
+    padding-bottom: .5em;
+}
+
+.pokemon-detail .detail-sec-info {
+    grid-column: 1/4;
+    text-align: left;
 }
 
 .pokemon-preview {
@@ -81,7 +104,7 @@ body {
 }
 
 /* Header/nav controls */
-ul {
+#nav-list {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -89,15 +112,11 @@ ul {
     background-color: #333;
 }
   
-li {
+.header-link {
     float: left;
     display: block;
     color: white;
     text-align: center;
     padding: 14px 16px;
-}
-
-.header-link {
-    color:white;
     text-decoration: none;
 }

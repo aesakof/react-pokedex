@@ -27,6 +27,8 @@ function PokemonDetail() {
 
     const [pokemonInfo, setPokemonInfo] = useState(null)
     const [types, setTypes] = useState([])
+    const [speciesData, setSpeciesData] = useState(null)
+    const [abilities, setAbilities] = useState([])
 
     const url = `https://pokeapi.co/api/v2/pokemon/${pokemonId}`
 
@@ -34,10 +36,37 @@ function PokemonDetail() {
         return word.charAt(0).toUpperCase() + word.slice(1)
     }
 
+    /*
+    const abilities = [
+        {name: blaze,
+        description: blah blah blah}
+    ]
+    */
+
     useEffect(() => {
         fetch(url)
             .then(res => res.json())
             .then(data => {
+                fetch(data.species.url)
+                    .then(res => res.json())
+                    .then(speciesData => setSpeciesData(speciesData))
+                
+                for(let i = 0; i < data.abilities.length; i++) {
+                    fetch(data.abilities[i].ability.url)
+                        .then(res => res.json())
+                        .then(abilitiesData => setAbilities(prevAbilities => {
+                            for(let j = 0; j < abilitiesData.effect_entries.length; j++) {
+                                if(abilitiesData.effect_entries[j].language.name == "en") {
+                                    const ability = {
+                                        name: abilitiesData.name,
+                                        effect: abilitiesData.effect_entries[j].effect
+                                    }
+                                    return [...prevAbilities, ability]
+                                }
+                            }
+                        }))
+                }
+
                 for(let i = 0; i < data.types.length; i++) {
                     setTypes(prevTypes => {
                         const t = capitalize(data.types[i].type.name) //store types as capitals for easier use later
@@ -58,10 +87,22 @@ function PokemonDetail() {
         }
     }
 
+    function getAbilities() {
+        return (abilities.map(ability => {
+            return (<li className="ability" key={ability.name}><strong>{capitalize(ability.name)}:</strong> {ability.effect}</li>)
+        }))
+    }
+
+    function getBaseStats() {
+        return (pokemonInfo.stats.map(stat => {
+            return (<li key={stat.stat.name}>{capitalize(stat.stat.name)}: {stat.base_stat}</li>)
+        }))
+    }
+
     return (
         <>
             {
-                pokemonInfo === null ?
+                (pokemonInfo === null || speciesData === null) ?
                 <h5>Loading pokemon data...</h5> :
                 <div className="pokemon-detail" style={backgroundStyle()}>
                     <div className="detail-header">
@@ -75,15 +116,19 @@ function PokemonDetail() {
                     <div className="detail-main-info">
                         {
                             types.length == 2 ?
-                            <h5>Types: {types[0]} / {types[1]}</h5> :
-                            <h5>Type: {types[0]}</h5>
+                            <h3>Types: {types[0]} / {types[1]}</h3> :
+                            <h3>Type: {types[0]}</h3>
                         }
-                        <h5>Height: {pokemonInfo.height}</h5>
-                        <h5>Weight: {pokemonInfo.weight}</h5>
+                        {capitalize(speciesData.generation.name)}
+                        <h3>Height: {pokemonInfo.height/10} meters</h3>
+                        <h3>Weight: {pokemonInfo.weight/10} kilograms</h3>
+                        <h3>Base Stats: </h3>
+                        <ul>{getBaseStats()}</ul>
                     </div>
 
                     <div className="detail-sec-info">
-
+                        <h3>Abilities: </h3>
+                        <ul>{getAbilities()}</ul>
                     </div>          
                 </div>
             }

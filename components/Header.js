@@ -4,7 +4,7 @@ import {Link} from "react-router-dom"
 function Header() {
 
     return (
-        <ul>
+        <ul id="nav-list">
             <li><Link className="header-link" to="/">React Pokedex</Link></li>
             <li><Link className="header-link" to="/pokemon">Pokemon List</Link></li>
         </ul>
