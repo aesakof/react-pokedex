@@ -2,6 +2,7 @@ body {
     background: grey;
     margin: 0;
     padding: 0;
+    font-family: 'Balsamiq Sans', cursive;
 }
  
 .pokemon-list {
@@ -26,7 +27,7 @@ body {
     padding-left: 50px;
     padding-right: 50px;
     padding-top: 20px;
-	padding-bottom: 5px;
+	padding-bottom: 20px;
     text-align: center;
     width: 1000px;
 }
@@ -53,14 +54,18 @@ body {
     text-align: left;
 }
 
-.ability {
+.base-stat {
     list-style-type: none;
-    padding-bottom: .5em;
 }
 
 .pokemon-detail .detail-sec-info {
     grid-column: 1/4;
     text-align: left;
+}
+
+.ability {
+    list-style-type: none;
+    padding-bottom: .5em;
 }
 
 .pokemon-preview {

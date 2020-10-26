@@ -2,24 +2,24 @@ import React, { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 
 const typeColors = {
-    Normal: '#A8A878',
-    Fire: '#F06430',
-    Water: '#6890F0',
-    Grass: '#78C850',
-    Electric: '#F8D030',
-    Ice: '#98D8D8',
-    Fighting: '#C03028',
-    Poison: '#A040A0',
-    Ground: '#E0C068',
-    Flying: '#C7FDFF',
-    Psychic: '#F85888',
-    Bug: '#A8B820',
-    Rock: '#B8A038',
-    Ghost: '#705898',
-    Dark: '#825CA6',
-    Dragon: '#7038F8',
-    Steel: '#9D9D9D',
-    Fairy: '#EE99AC'
+    normal: '#A8A878',
+    fire: '#F06430',
+    water: '#6890F0',
+    grass: '#78C850',
+    electric: '#F8D030',
+    ice: '#98D8D8',
+    fighting: '#C03028',
+    poison: '#A040A0',
+    ground: '#E0C068',
+    flying: '#C7FDFF',
+    psychic: '#F85888',
+    bug: '#A8B820',
+    rock: '#B8A038',
+    ghost: '#705898',
+    dark: '#825CA6',
+    dragon: '#7038F8',
+    steel: '#9D9D9D',
+    fairy: '#EE99AC'
 }
 
 function PokemonDetail() {
@@ -29,19 +29,13 @@ function PokemonDetail() {
     const [types, setTypes] = useState([])
     const [speciesData, setSpeciesData] = useState(null)
     const [abilities, setAbilities] = useState([])
+    const [moves, setMoves] = useState([])
 
     const url = `https://pokeapi.co/api/v2/pokemon/${pokemonId}`
 
     function capitalize(word) {
         return word.charAt(0).toUpperCase() + word.slice(1)
     }
-
-    /*
-    const abilities = [
-        {name: blaze,
-        description: blah blah blah}
-    ]
-    */
 
     useEffect(() => {
         fetch(url)
@@ -67,9 +61,24 @@ function PokemonDetail() {
                         }))
                 }
 
+                for(let i = 0; i < data.moves.length; i++) {
+                    fetch(data.moves[i].move.url)
+                        .then(res => res.json())
+                        .then(movesData => setMoves(prevMoves => {
+                            const move = {
+                                name: movesData.name,
+                                power: movesData.power,
+                                pp: movesData.pp,
+                                type: movesData.type.name,
+                                accuracy: movesData.accuracy,
+                            }
+                            return [...prevMoves, move]
+                        }))
+                }
+
                 for(let i = 0; i < data.types.length; i++) {
                     setTypes(prevTypes => {
-                        const t = capitalize(data.types[i].type.name) //store types as capitals for easier use later
+                        const t = data.types[i].type.name //store types as capitals for easier use later
                         return [...prevTypes, t]
                     })
                 }
@@ -77,7 +86,7 @@ function PokemonDetail() {
             })
     }, [])
 
-    const backgroundStyle = () => {
+    function backgroundStyle() {
         if(types.length === 1) {
             return {backgroundColor: typeColors[types[0]]}
         } else {
@@ -95,7 +104,19 @@ function PokemonDetail() {
 
     function getBaseStats() {
         return (pokemonInfo.stats.map(stat => {
-            return (<li key={stat.stat.name}>{capitalize(stat.stat.name)}: {stat.base_stat}</li>)
+            return (<li className="base-stat" key={stat.stat.name}>{capitalize(stat.stat.name)}: {stat.base_stat}</li>)
+        }))
+    }
+
+    function getMoves() {
+        return (moves.map(move => {
+            return (<tr>
+                        <td>{capitalize(move.name)}</td>
+                        <td>{capitalize(move.type)}</td>
+                        <td>{move.pp}</td>
+                        <td>{move.power}</td>
+                        <td>{move.accuracy}</td>
+                    </tr>)
         }))
     }
 
@@ -116,8 +137,8 @@ function PokemonDetail() {
                     <div className="detail-main-info">
                         {
                             types.length == 2 ?
-                            <h3>Types: {types[0]} / {types[1]}</h3> :
-                            <h3>Type: {types[0]}</h3>
+                            <h3>Types: {capitalize(types[0])} / {capitalize(types[1])}</h3> :
+                            <h3>Type: {capitalize(types[0])}</h3>
                         }
                         {capitalize(speciesData.generation.name)}
                         <h3>Height: {pokemonInfo.height/10} meters</h3>
@@ -127,8 +148,20 @@ function PokemonDetail() {
                     </div>
 
                     <div className="detail-sec-info">
-                        <h3>Abilities: </h3>
+                        <h3>Abilities:</h3>
                         <ul>{getAbilities()}</ul>
+
+                        <h3>Moves:</h3>
+                        <table>
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>PP</th>
+                                <th>Power</th>
+                                <th>Accuracy</th>
+                            </tr>
+                            {getMoves()}
+                        </table>
                     </div>          
                 </div>
             }

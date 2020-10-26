@@ -3,24 +3,24 @@ import { Link } from "react-router-dom"
 
 //move this to a data file or something
 const typeColors = {
-    Normal: '#A8A878',
-    Fire: '#F06430',
-    Water: '#6890F0',
-    Grass: '#78C850',
-    Electric: '#F8D030',
-    Ice: '#98D8D8',
-    Fighting: '#C03028',
-    Poison: '#A040A0',
-    Ground: '#E0C068',
-    Flying: '#C7FDFF',
-    Psychic: '#F85888',
-    Bug: '#A8B820',
-    Rock: '#B8A038',
-    Ghost: '#705898',
-    Dark: '#825CA6',
-    Dragon: '#7038F8',
-    Steel: '#9D9D9D',
-    Fairy: '#EE99AC'
+    normal: '#A8A878',
+    fire: '#F06430',
+    water: '#6890F0',
+    grass: '#78C850',
+    electric: '#F8D030',
+    ice: '#98D8D8',
+    fighting: '#C03028',
+    poison: '#A040A0',
+    ground: '#E0C068',
+    flying: '#C7FDFF',
+    psychic: '#F85888',
+    bug: '#A8B820',
+    rock: '#B8A038',
+    ghost: '#705898',
+    dark: '#825CA6',
+    dragon: '#7038F8',
+    steel: '#9D9D9D',
+    fairy: '#EE99AC'
 }
 
 function PokemonPreview(props) {
@@ -41,7 +41,7 @@ function PokemonPreview(props) {
             .then(data => {
                 for(let i = 0; i < data.types.length; i++) {
                     setTypes(prevTypes => {
-                        const t = capitalize(data.types[i].type.name) //store types as capitals for easier use later
+                        const t = data.types[i].type.name //store types as capitals for easier use later
                         return [...prevTypes, t]
                     })
                 }
@@ -49,7 +49,7 @@ function PokemonPreview(props) {
             })
     }, [])
 
-    const backgroundStyle = () => {
+    function backgroundStyle() {
         if(types.length === 1) {
             return {backgroundColor: typeColors[types[0]]}
         } else {
@@ -73,10 +73,9 @@ function PokemonPreview(props) {
                             <h5>#{pokemonInfo.id}</h5>
                             {
                                 types.length == 2 ?
-                                <h5>Types: {types[0]} / {types[1]}</h5> :
-                                <h5>Type: {types[0]}</h5>
-                            }
-                                    
+                                <h5>Types: {capitalize(types[0])} / {capitalize(types[1])}</h5> :
+                                <h5>Type: {capitalize(types[0])}</h5>
+                            }         
                     </div>
                 </Link>
             }
