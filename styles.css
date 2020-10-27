@@ -24,10 +24,11 @@ body {
 	box-shadow: 0 3px 15px rgba(100, 100, 100, 0.5);
     margin: 0 auto;
     margin-top: 20px;
+    margin-bottom: 20px;
     padding-left: 50px;
     padding-right: 50px;
     padding-top: 20px;
-	padding-bottom: 20px;
+	padding-bottom: 40px;
     text-align: center;
     width: 1000px;
 }
@@ -66,6 +67,15 @@ body {
 .ability {
     list-style-type: none;
     padding-bottom: .5em;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+td, th {
+    border: 1px solid black;
+    padding: 10px;
 }
 
 .pokemon-preview {

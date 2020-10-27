@@ -1,27 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
-
-//move this to a data file or something
-const typeColors = {
-    normal: '#A8A878',
-    fire: '#F06430',
-    water: '#6890F0',
-    grass: '#78C850',
-    electric: '#F8D030',
-    ice: '#98D8D8',
-    fighting: '#C03028',
-    poison: '#A040A0',
-    ground: '#E0C068',
-    flying: '#C7FDFF',
-    psychic: '#F85888',
-    bug: '#A8B820',
-    rock: '#B8A038',
-    ghost: '#705898',
-    dark: '#825CA6',
-    dragon: '#7038F8',
-    steel: '#9D9D9D',
-    fairy: '#EE99AC'
-}
+import typeColors from "./../public/typeColors"
+import capitalize from "./../public/utils"
 
 function PokemonPreview(props) {
     const [pokemonInfo, setPokemonInfo] = useState(null)
@@ -29,11 +9,6 @@ function PokemonPreview(props) {
 
     const name = capitalize(props.pokemon.name)
     const url = props.pokemon.url
-
-    //move this to a util file or something
-    function capitalize(word) {
-        return word.charAt(0).toUpperCase() + word.slice(1)
-    }
 
     useEffect(() => {
         fetch(url)
@@ -49,7 +24,7 @@ function PokemonPreview(props) {
             })
     }, [])
 
-    function backgroundStyle() {
+    function backgroundStyle(types) {
         if(types.length === 1) {
             return {backgroundColor: typeColors[types[0]]}
         } else {
@@ -64,7 +39,7 @@ function PokemonPreview(props) {
             {
                 pokemonInfo === null ?
                 <h5>Loading pokemon data...</h5> :
-                <Link to={`/pokemon/${pokemonInfo.id}`} style={backgroundStyle()} className="pokemon-preview">
+                <Link to={`/pokemon/${pokemonInfo.id}`} style={backgroundStyle(types)} className="pokemon-preview">
                     <div>
                         <h3>{name}</h3>
                             <div className="preview-pic-container">

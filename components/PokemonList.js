@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react"
-import PokemonPreview from "./../components/PokemonPreview"
+import PokemonPreview from "./PokemonPreview"
 
 function PokemonList() {
     const [pokemon, setPokemon] = useState([])
     const [currentUrl, setCurrentUrl] = useState("https://pokeapi.co/api/v2/pokemon")
     const [nextUrl, setNextUrl] = useState("")
     const [prevUrl, setPrevUrl] = useState("")
-    const [loading, setLoading] = useState("")
 
     useEffect(() => {
         fetch(currentUrl)

@@ -1,26 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
-
-const typeColors = {
-    normal: '#A8A878',
-    fire: '#F06430',
-    water: '#6890F0',
-    grass: '#78C850',
-    electric: '#F8D030',
-    ice: '#98D8D8',
-    fighting: '#C03028',
-    poison: '#A040A0',
-    ground: '#E0C068',
-    flying: '#C7FDFF',
-    psychic: '#F85888',
-    bug: '#A8B820',
-    rock: '#B8A038',
-    ghost: '#705898',
-    dark: '#825CA6',
-    dragon: '#7038F8',
-    steel: '#9D9D9D',
-    fairy: '#EE99AC'
-}
+import typeColors from "./../public/typeColors"
+import capitalize from "./../public/utils"
 
 function PokemonDetail() {
     const {pokemonId} = useParams()
@@ -32,10 +13,6 @@ function PokemonDetail() {
     const [moves, setMoves] = useState([])
 
     const url = `https://pokeapi.co/api/v2/pokemon/${pokemonId}`
-
-    function capitalize(word) {
-        return word.charAt(0).toUpperCase() + word.slice(1)
-    }
 
     useEffect(() => {
         fetch(url)
@@ -65,12 +42,21 @@ function PokemonDetail() {
                     fetch(data.moves[i].move.url)
                         .then(res => res.json())
                         .then(movesData => setMoves(prevMoves => {
+                            const flavorText = () => {
+                                for(let j = 0; j < movesData.flavor_text_entries.length; j++){
+                                    if(movesData.flavor_text_entries[j].language.name == "en" && movesData.flavor_text_entries[j].version_group.name == "ultra-sun-ultra-moon") {
+                                        return movesData.flavor_text_entries[j].flavor_text
+                                    }
+                                }
+                            }
+
                             const move = {
                                 name: movesData.name,
                                 power: movesData.power,
                                 pp: movesData.pp,
                                 type: movesData.type.name,
                                 accuracy: movesData.accuracy,
+                                flavorText: flavorText(),
                             }
                             return [...prevMoves, move]
                         }))
@@ -82,11 +68,12 @@ function PokemonDetail() {
                         return [...prevTypes, t]
                     })
                 }
+
                 setPokemonInfo(data)
             })
     }, [])
 
-    function backgroundStyle() {
+    function backgroundStyle(types) {
         if(types.length === 1) {
             return {backgroundColor: typeColors[types[0]]}
         } else {
@@ -110,12 +97,13 @@ function PokemonDetail() {
 
     function getMoves() {
         return (moves.map(move => {
-            return (<tr>
+            return (<tr style={backgroundStyle([move.type])} key={move.name}>
                         <td>{capitalize(move.name)}</td>
                         <td>{capitalize(move.type)}</td>
                         <td>{move.pp}</td>
                         <td>{move.power}</td>
                         <td>{move.accuracy}</td>
+                        <td>{move.flavorText}</td>
                     </tr>)
         }))
     }
@@ -125,7 +113,7 @@ function PokemonDetail() {
             {
                 (pokemonInfo === null || speciesData === null) ?
                 <h5>Loading pokemon data...</h5> :
-                <div className="pokemon-detail" style={backgroundStyle()}>
+                <div className="pokemon-detail" style={backgroundStyle(types)}>
                     <div className="detail-header">
                         <h1>#{pokemonInfo.id} - {capitalize(pokemonInfo.name)}</h1>
                     </div>
@@ -140,7 +128,12 @@ function PokemonDetail() {
                             <h3>Types: {capitalize(types[0])} / {capitalize(types[1])}</h3> :
                             <h3>Type: {capitalize(types[0])}</h3>
                         }
-                        {capitalize(speciesData.generation.name)}
+                        <h3>{capitalize(speciesData.generation.name)}</h3>
+                        {
+                            speciesData.evolves_from_species != null ?
+                            <h3>Evolves From: {capitalize(speciesData.evolves_from_species.name)}</h3> :
+                            <></>
+                        }
                         <h3>Height: {pokemonInfo.height/10} meters</h3>
                         <h3>Weight: {pokemonInfo.weight/10} kilograms</h3>
                         <h3>Base Stats: </h3>
@@ -153,14 +146,19 @@ function PokemonDetail() {
 
                         <h3>Moves:</h3>
                         <table>
-                            <tr>
-                                <th>Name</th>
-                                <th>Type</th>
-                                <th>PP</th>
-                                <th>Power</th>
-                                <th>Accuracy</th>
-                            </tr>
-                            {getMoves()}
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>PP</th>
+                                    <th>Power</th>
+                                    <th>Accuracy</th>
+                                    <th>Flavor Text</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {getMoves()}
+                            </tbody>
                         </table>
                     </div>          
                 </div>
