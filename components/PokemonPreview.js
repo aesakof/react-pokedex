@@ -16,7 +16,7 @@ function PokemonPreview(props) {
             .then(data => {
                 for(let i = 0; i < data.types.length; i++) {
                     setTypes(prevTypes => {
-                        const t = data.types[i].type.name //store types as capitals for easier use later
+                        const t = data.types[i].type.name
                         return [...prevTypes, t]
                     })
                 }

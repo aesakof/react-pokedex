@@ -64,7 +64,7 @@ function PokemonDetail() {
 
                 for(let i = 0; i < data.types.length; i++) {
                     setTypes(prevTypes => {
-                        const t = data.types[i].type.name //store types as capitals for easier use later
+                        const t = data.types[i].type.name
                         return [...prevTypes, t]
                     })
                 }
@@ -128,7 +128,7 @@ function PokemonDetail() {
                             <h3>Types: {capitalize(types[0])} / {capitalize(types[1])}</h3> :
                             <h3>Type: {capitalize(types[0])}</h3>
                         }
-                        <h3>{capitalize(speciesData.generation.name)}</h3>
+                        <h3>Generation {speciesData.generation.name.split("-")[1].toUpperCase()}</h3>
                         {
                             speciesData.evolves_from_species != null ?
                             <h3>Evolves From: {capitalize(speciesData.evolves_from_species.name)}</h3> :
