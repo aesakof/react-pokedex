@@ -11,7 +11,7 @@ body {
     align-items: space-between;
     justify-content: center;
     margin: 0 auto;
-    max-width: 1300px;
+    max-width: 1400px;
     width: 100%;
 }
 
@@ -98,7 +98,8 @@ td, th {
     padding-right: 50px;
     padding-top: 5px;
 	padding-bottom: 5px;
-	text-align: center;
+    text-align: center;
+    width: 140px;
 }
 
 .preview-header {
@@ -117,15 +118,15 @@ td, th {
 
 .preview-pic-container {
 	background-color: rgba(255, 255, 255, 0.6);
-	border-radius: 50%;
+    border-radius: 50%;
+    margin: auto;
 	width: 130px;
 	height: 130px;
-	text-align: center;
 }
 
 .preview-pic {
-	margin-top: 20px;
-	max-width: 90%;
+    margin-top: 20px;
+    max-width: 90%;
 }
 
 /* Pagination controls*/
