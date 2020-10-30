@@ -18,6 +18,7 @@ body {
 .pokemon-detail {
     display: grid;
     grid-template-columns: 200px 325px;
+    position: relative;
 
     color: black;
 	border-radius: 20px;
@@ -33,11 +34,20 @@ body {
     width: 1000px;
 }
 
-.pokemon-detail .detail-header {
+.detail-header {
+    justify-content: center;
+    display: flex;
     grid-column: 1/4;
 }
 
-.pokemon-detail .detail-pic-container {
+.detail-heart {
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    font-size: 70px;
+}
+
+.detail-pic-container {
     grid-column: 1/2;
 	background-color: rgba(255, 255, 255, 0.6);
 	border-radius: 50%;
@@ -45,12 +55,12 @@ body {
 	height: 400px;
 }
 
-.pokemon-detail .detail-pic-container .detail-pic {
+.detail-pic {
 	margin-top: 20px;
 	max-width: 90%;
 }
 
-.pokemon-detail .detail-main-info {
+.detail-main-info {
     grid-column: 3/4;
     text-align: left;
 }
@@ -59,7 +69,7 @@ body {
     list-style-type: none;
 }
 
-.pokemon-detail .detail-sec-info {
+.detail-sec-info {
     grid-column: 1/4;
     text-align: left;
 }
@@ -91,7 +101,21 @@ td, th {
 	text-align: center;
 }
 
-.pokemon-preview .preview-pic-container {
+.preview-header {
+    display: grid;
+    position: relative;
+}
+
+.preview-heart {
+    font-size: 25px;
+    position: absolute;
+    right: 0px;
+    margin: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.preview-pic-container {
 	background-color: rgba(255, 255, 255, 0.6);
 	border-radius: 50%;
 	width: 130px;
@@ -99,7 +123,7 @@ td, th {
 	text-align: center;
 }
 
-.pokemon-preview .preview-pic-container .preview-pic {
+.preview-pic {
 	margin-top: 20px;
 	max-width: 90%;
 }

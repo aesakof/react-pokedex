@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import { useParams } from "react-router-dom"
+
 import typeColors from "./../public/typeColors"
 import capitalize from "./../public/utils"
+
+import {Context} from "./../Context"
 
 function PokemonDetail() {
     const {pokemonId} = useParams()
@@ -11,6 +14,8 @@ function PokemonDetail() {
     const [speciesData, setSpeciesData] = useState(null)
     const [abilities, setAbilities] = useState([])
     const [moves, setMoves] = useState([])
+
+    const {favorites, addFavorite, removeFavorite} = useContext(Context)
 
     const url = `https://pokeapi.co/api/v2/pokemon/${pokemonId}`
 
@@ -108,6 +113,17 @@ function PokemonDetail() {
         }))
     }
 
+    function heartIcon() {
+        const inFavorites = favorites.includes(pokemonInfo.id)
+        console.log(favorites)
+        if(inFavorites) {
+            return (<i className="fas fa-heart preview" onClick={() => removeFavorite(pokemonInfo.id)}></i>)
+        } else {
+            return (<i className="far fa-heart preview" onClick={() => addFavorite(pokemonInfo.id)}></i>)
+        }
+        
+    }
+
     return (
         <>
             {
@@ -116,6 +132,9 @@ function PokemonDetail() {
                 <div className="pokemon-detail" style={backgroundStyle(types)}>
                     <div className="detail-header">
                         <h1>#{pokemonInfo.id} - {capitalize(pokemonInfo.name)}</h1>
+                        <div className="detail-heart">
+                            {heartIcon()}
+                        </div>
                     </div>
                     
                     <div className="detail-pic-container">

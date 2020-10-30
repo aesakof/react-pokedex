@@ -1,16 +1,16 @@
-import React, {useState, useEffect} from "react"
+import React, { useState } from "react"
 
 const Context = React.createContext()
 
 function ContextProvider({children}) {
     const [favorites, setFavorites] = useState([])
     
-    function addFavorite(newItem) {
-        setFavorites(prevItems => [...prevItems, newItem])
+    function addFavorite(newId) {
+        setFavorites(prevIds => [...prevIds, newId])
     }
     
     function removeFavorite(id) {
-        setFavorites(prevItems => prevItems.filter(item => item.id !== id))
+        setFavorites(prevIds => prevIds.filter(item => item !== id))
     }
     
     return (

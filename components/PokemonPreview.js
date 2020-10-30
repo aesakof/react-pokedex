@@ -39,18 +39,24 @@ function PokemonPreview(props) {
             {
                 pokemonInfo === null ?
                 <h5>Loading pokemon data...</h5> :
+                
                 <Link to={`/pokemon/${pokemonInfo.id}`} style={backgroundStyle(types)} className="pokemon-preview">
                     <div>
-                        <h3>{name}</h3>
-                            <div className="preview-pic-container">
-                                <img className="preview-pic" src={`https://pokeres.bastionbot.org/images/pokemon/${pokemonInfo.id}.png`} />
-                            </div>
-                            <h5>#{pokemonInfo.id}</h5>
-                            {
-                                types.length == 2 ?
-                                <h5>Types: {capitalize(types[0])} / {capitalize(types[1])}</h5> :
-                                <h5>Type: {capitalize(types[0])}</h5>
-                            }         
+                        <div className="preview-header">
+                            <h3 className="preview-name">{name}</h3>
+                            {/* <div className="preview-heart">
+                                <i className="far fa-heart preview"></i>
+                            </div>    */}
+                        </div>
+                        <div className="preview-pic-container">
+                            <img className="preview-pic" src={`https://pokeres.bastionbot.org/images/pokemon/${pokemonInfo.id}.png`} />
+                        </div>
+                        <h5 className="preview-id">#{pokemonInfo.id}</h5>
+                        {
+                            types.length == 2 ?
+                            <h5 className="preview-types">Types: {capitalize(types[0])} / {capitalize(types[1])}</h5> :
+                            <h5 className="preview-types">Type: {capitalize(types[0])}</h5>
+                        }      
                     </div>
                 </Link>
             }
