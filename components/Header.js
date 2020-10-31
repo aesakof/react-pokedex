@@ -7,6 +7,7 @@ function Header() {
         <ul id="nav-list">
             <li><Link className="header-link" to="/">React Pokedex</Link></li>
             <li><Link className="header-link" to="/pokemon">Pokemon List</Link></li>
+            <li><Link className="header-link" to="/favorites">Favorites</Link></li>
         </ul>
     )
 }

@@ -5,6 +5,7 @@ import PokemonList from "./components/PokemonList"
 import PokemonDetail from "./components/PokemonDetail"
 import Header from "./components/Header"
 import Home from "./components/Home"
+import Favorites from "./components/Favorites"
 
 function App() {
     return (
@@ -15,10 +16,16 @@ function App() {
                     <Home />
                 </Route>
                 <Route exact path="/pokemon">
-                    <PokemonList />
+                    {console.log("All Pokemon page!")}
+                    <PokemonList page="all_pokemon" />
                 </Route>
                 <Route path="/pokemon/:pokemonId">
                     <PokemonDetail />
+                </Route>
+                <Route path="/favorites">
+                    {/* <PokemonList page="favorites" /> */}
+                    {console.log("Favorites page!")}
+                    <Favorites />
                 </Route>
             </Switch>
         </div>

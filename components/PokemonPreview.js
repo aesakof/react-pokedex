@@ -1,11 +1,16 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import { Link } from "react-router-dom"
 import typeColors from "./../public/typeColors"
 import capitalize from "./../public/utils"
 
+import {Context} from "./../Context"
+
+
 function PokemonPreview(props) {
     const [pokemonInfo, setPokemonInfo] = useState(null)
     const [types, setTypes] = useState([])
+
+    const {favorites, addFavorite, removeFavorite} = useContext(Context)
 
     const name = capitalize(props.pokemon.name)
     const url = props.pokemon.url
@@ -34,31 +39,42 @@ function PokemonPreview(props) {
         }
     }
 
+    function heartIcon() {
+        const inFavorites = favorites.some(mon => mon.name === pokemonInfo.name)
+        if(inFavorites) {
+            return (<i className="fas fa-heart preview" onClick={() => removeFavorite(pokemonInfo.name)}></i>)
+        } else {
+            return (<i className="far fa-heart preview" onClick={() => addFavorite(pokemonInfo.name,pokemonInfo.id)}></i>)
+        }  
+    }
+
     return (
         <>
             {
                 pokemonInfo === null ?
                 <h5>Loading pokemon data...</h5> :
                 
-                <Link to={`/pokemon/${pokemonInfo.id}`} style={backgroundStyle(types)} className="pokemon-preview">
-                    <div>
-                        <div className="preview-header">
-                            <h3 className="preview-name">{name}</h3>
-                            {/* <div className="preview-heart">
-                                <i className="far fa-heart preview"></i>
-                            </div>    */}
-                        </div>
+                <div style={backgroundStyle(types)} className="pokemon-preview">
+                    <div className="preview-header">
+                        <Link to={`/pokemon/${pokemonInfo.id}`} className='preview-link'>
+                            <h3>{name}</h3>
+                        </Link>
+                        <div className="preview-heart">
+                            {heartIcon()}
+                        </div>   
+                    </div>
+                    <Link to={`/pokemon/${pokemonInfo.id}`} className='preview-link'>
                         <div className="preview-pic-container">
                             <img className="preview-pic" src={`https://pokeres.bastionbot.org/images/pokemon/${pokemonInfo.id}.png`} />
                         </div>
-                        <h5 className="preview-id">#{pokemonInfo.id}</h5>
+                        <h5>#{pokemonInfo.id}</h5>
                         {
                             types.length == 2 ?
                             <h5 className="preview-types">Types: {capitalize(types[0])} / {capitalize(types[1])}</h5> :
                             <h5 className="preview-types">Type: {capitalize(types[0])}</h5>
-                        }      
-                    </div>
-                </Link>
+                        }  
+                    </Link>    
+                </div>
             }
         </>
     )

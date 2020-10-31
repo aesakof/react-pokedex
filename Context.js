@@ -5,12 +5,13 @@ const Context = React.createContext()
 function ContextProvider({children}) {
     const [favorites, setFavorites] = useState([])
     
-    function addFavorite(newId) {
-        setFavorites(prevIds => [...prevIds, newId])
+    function addFavorite(name, id) {
+        const url = `https://pokeapi.co/api/v2/pokemon/${id}`
+        setFavorites(prevFavs => [...prevFavs, {name: name, url: url}])
     }
     
-    function removeFavorite(id) {
-        setFavorites(prevIds => prevIds.filter(item => item !== id))
+    function removeFavorite(name) {
+        setFavorites(prevFavs => prevFavs.filter(item => item.name !== name))
     }
     
     return (

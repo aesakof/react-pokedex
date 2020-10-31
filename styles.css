@@ -15,11 +15,17 @@ body {
     width: 100%;
 }
 
+.fa-arrow-left {
+    position: absolute;
+    font-size: 25px;
+    top: 10px;
+    left: 15px;
+}
+
 .pokemon-detail {
     display: grid;
     grid-template-columns: 200px 325px;
     position: relative;
-
     color: black;
 	border-radius: 20px;
 	box-shadow: 0 3px 15px rgba(100, 100, 100, 0.5);
@@ -103,17 +109,21 @@ td, th {
 }
 
 .preview-header {
-    display: grid;
+    justify-content: center;
+    display: flex;
     position: relative;
 }
 
+.preview-link {
+    color: black;
+    text-decoration: none;
+}
+
 .preview-heart {
-    font-size: 25px;
     position: absolute;
-    right: 0px;
-    margin: 0px;
-    padding-left: 10px;
-    padding-right: 10px;
+    top: 10px;
+    right: -30px;
+    font-size: 30px;
 }
 
 .preview-pic-container {

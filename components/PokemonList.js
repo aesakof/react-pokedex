@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react"
 import PokemonPreview from "./PokemonPreview"
 
-function PokemonList() {
+function PokemonList(props) {
     const [pokemon, setPokemon] = useState([])
     const [currentUrl, setCurrentUrl] = useState("https://pokeapi.co/api/v2/pokemon")
-    const [nextUrl, setNextUrl] = useState("")
-    const [prevUrl, setPrevUrl] = useState("")
+    const [nextUrl, setNextUrl] = useState()
+    const [prevUrl, setPrevUrl] = useState()
+
+    // console.log(props.page)
 
     useEffect(() => {
         fetch(currentUrl)

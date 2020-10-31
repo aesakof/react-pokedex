@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useHistory } from "react-router-dom"
 
 import typeColors from "./../public/typeColors"
 import capitalize from "./../public/utils"
@@ -8,6 +8,7 @@ import {Context} from "./../Context"
 
 function PokemonDetail() {
     const {pokemonId} = useParams()
+    const history = useHistory();
 
     const [pokemonInfo, setPokemonInfo] = useState(null)
     const [types, setTypes] = useState([])
@@ -114,14 +115,12 @@ function PokemonDetail() {
     }
 
     function heartIcon() {
-        const inFavorites = favorites.includes(pokemonInfo.id)
-        console.log(favorites)
+        const inFavorites = favorites.some(mon => mon.name === pokemonInfo.name)
         if(inFavorites) {
-            return (<i className="fas fa-heart preview" onClick={() => removeFavorite(pokemonInfo.id)}></i>)
+            return (<i className="fas fa-heart preview" onClick={() => removeFavorite(pokemonInfo.name)}></i>)
         } else {
-            return (<i className="far fa-heart preview" onClick={() => addFavorite(pokemonInfo.id)}></i>)
-        }
-        
+            return (<i className="far fa-heart preview" onClick={() => addFavorite(pokemonInfo.name,pokemonInfo.id)}></i>)
+        }  
     }
 
     return (
@@ -130,6 +129,7 @@ function PokemonDetail() {
                 (pokemonInfo === null || speciesData === null) ?
                 <h5>Loading pokemon data...</h5> :
                 <div className="pokemon-detail" style={backgroundStyle(types)}>
+                    <i id="back" className="fas fa-arrow-left" onClick={() => history.goBack()}> Back</i>
                     <div className="detail-header">
                         <h1>#{pokemonInfo.id} - {capitalize(pokemonInfo.name)}</h1>
                         <div className="detail-heart">
