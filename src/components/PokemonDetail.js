@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from "react"
 import { useParams, useHistory } from "react-router-dom"
 
-import typeColors from "./../public/typeColors"
-import capitalize from "./../public/utils"
+import typeColors from "../typeColors"
+import capitalize from "../utils"
 
 import {Context} from "./../Context"
 

@@ -6,6 +6,7 @@ import PokemonDetail from "./components/PokemonDetail"
 import Header from "./components/Header"
 import Home from "./components/Home"
 import Favorites from "./components/Favorites"
+import "./App.css"
 
 function App() {
     return (
