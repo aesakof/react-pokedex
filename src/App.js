@@ -17,7 +17,6 @@ function App() {
                     <Home />
                 </Route>
                 <Route exact path="/pokemon">
-                    {console.log("All Pokemon page!")}
                     <PokemonList page="all_pokemon" />
                 </Route>
                 <Route path="/pokemon/:pokemonId">
@@ -25,7 +24,6 @@ function App() {
                 </Route>
                 <Route path="/favorites">
                     {/* <PokemonList page="favorites" /> */}
-                    {console.log("Favorites page!")}
                     <Favorites />
                 </Route>
             </Switch>

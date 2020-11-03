@@ -33,7 +33,7 @@ function PokemonDetail() {
                         .then(res => res.json())
                         .then(abilitiesData => setAbilities(prevAbilities => {
                             for(let j = 0; j < abilitiesData.effect_entries.length; j++) {
-                                if(abilitiesData.effect_entries[j].language.name == "en") {
+                                if(abilitiesData.effect_entries[j].language.name === "en") {
                                     const ability = {
                                         name: abilitiesData.name,
                                         effect: abilitiesData.effect_entries[j].effect
@@ -50,7 +50,7 @@ function PokemonDetail() {
                         .then(movesData => setMoves(prevMoves => {
                             const flavorText = () => {
                                 for(let j = 0; j < movesData.flavor_text_entries.length; j++){
-                                    if(movesData.flavor_text_entries[j].language.name == "en" && movesData.flavor_text_entries[j].version_group.name == "ultra-sun-ultra-moon") {
+                                    if(movesData.flavor_text_entries[j].language.name === "en" && movesData.flavor_text_entries[j].version_group.name === "ultra-sun-ultra-moon") {
                                         return movesData.flavor_text_entries[j].flavor_text
                                     }
                                 }
@@ -143,7 +143,7 @@ function PokemonDetail() {
 
                     <div className="detail-main-info">
                         {
-                            types.length == 2 ?
+                            types.length === 2 ?
                             <h3>Types: {capitalize(types[0])} / {capitalize(types[1])}</h3> :
                             <h3>Type: {capitalize(types[0])}</h3>
                         }

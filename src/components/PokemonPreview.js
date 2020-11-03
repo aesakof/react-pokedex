@@ -69,7 +69,7 @@ function PokemonPreview(props) {
                         </div>
                         <h5>#{pokemonInfo.id}</h5>
                         {
-                            types.length == 2 ?
+                            types.length === 2 ?
                             <h5 className="preview-types">Types: {capitalize(types[0])} / {capitalize(types[1])}</h5> :
                             <h5 className="preview-types">Type: {capitalize(types[0])}</h5>
                         }  

@@ -140,14 +140,11 @@ td, th {
 }
 
 /* Pagination controls*/
-#previous {
+.page-buttons {
     width: 100px;
     height: 40px;
 }
-#next {
-    width: 100px;
-    height: 40px;
-}
+
 #pagination{
     text-align: center;
     padding: 20px;
