@@ -8,14 +8,20 @@ function ContextProvider({children}) {
     const [nextUrl, setNextUrl] = useState()
     const [prevUrl, setPrevUrl] = useState()
     const [favorites, setFavorites] = useState([])
+    const [type, setType] = useState("none")
     
     useEffect(() => {
         fetch(currentUrl)
             .then(res => res.json())
             .then(data => {
-                setPrevUrl(data.previous)
-                setNextUrl(data.next)
-                setPokemon(data.results.map(p => p))
+                if(type === "none") {
+                    setPrevUrl(data.previous)
+                    setNextUrl(data.next)
+                    setPokemon(data.results.map(p => p))
+                } else {
+                    setPokemon(data.pokemon.map(p => p.pokemon))
+                }
+                
             })
     }, [currentUrl])
 
@@ -40,7 +46,9 @@ function ContextProvider({children}) {
             nextUrl,
             prevUrl,
             setPage,
-            pokemon
+            pokemon,
+            setType,
+            type
         }}>
             {children}
         </Context.Provider>

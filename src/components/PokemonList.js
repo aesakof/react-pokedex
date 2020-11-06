@@ -1,10 +1,11 @@
-import React, { useContext } from "react"
+import React, { useContext, useState } from "react"
 import Select from 'react-select';
 
 import PokemonPreview from "./PokemonPreview"
 import {Context} from "./../Context"
 
 const options = [
+    { value: 'none', label: 'None'},
     { value: 'normal', label: 'Normal' },
     { value: 'fire', label: 'Fire' },
     { value: 'water', label: 'Water' },
@@ -23,10 +24,10 @@ const options = [
     { value: 'dragon', label: 'Dragon' },
     { value: 'steel', label: 'Steel' },
     { value: 'fairy', label: 'Fairy' },
-  ];
+];
 
 function PokemonList(props) {
-    const { pokemon, setPage, prevUrl, nextUrl } = useContext(Context)
+    const { pokemon, setPage, prevUrl, nextUrl, setType, type } = useContext(Context)
 
     const beginningUrl = "https://pokeapi.co/api/v2/pokemon"
     const endingUrl = "https://pokeapi.co/api/v2/pokemon?offset=1030&limit=20"
@@ -36,7 +37,14 @@ function PokemonList(props) {
     })
 
     function handleChange(selectedOption) {
-        console.log(`Option selected:`, selectedOption);
+        console.log(selectedOption)
+        if(selectedOption.value === "none") {
+            setType(selectedOption.value)
+            setPage(beginningUrl)
+        } else {
+            setType(selectedOption.value)
+            setPage(`https://pokeapi.co/api/v2/type/${selectedOption.value}`)
+        }
     };
 
     return (
@@ -46,19 +54,25 @@ function PokemonList(props) {
                 <Select
                     className="type-select"
                     options={options}
+                    onChange={handleChange}
                 />
             </div>
-
+        
             <div className="pokemon-list">
                 {monz}
             </div>
 
-            <div id="pagination">
-                {prevUrl && <button className="page-buttons" onClick={() => setPage(beginningUrl)}>First</button>}
-                {prevUrl && <button className="page-buttons" onClick={() => setPage(prevUrl)}>Previous</button>}
-                {nextUrl && <button className="page-buttons" onClick={() => setPage(nextUrl)}>Next</button>}
-                {nextUrl && <button className="page-buttons" onClick={() => setPage(endingUrl)}>Last</button>}
-            </div>
+            {
+                type != "none" ?
+                <></> :
+                <div id="pagination">
+                    {prevUrl && <button className="page-buttons" onClick={() => setPage(beginningUrl)}>First</button>}
+                    {prevUrl && <button className="page-buttons" onClick={() => setPage(prevUrl)}>Previous</button>}
+                    {nextUrl && <button className="page-buttons" onClick={() => setPage(nextUrl)}>Next</button>}
+                    {nextUrl && <button className="page-buttons" onClick={() => setPage(endingUrl)}>Last</button>}
+                </div>
+            }
+            
         </div>
     )
 }
