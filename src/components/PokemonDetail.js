@@ -6,6 +6,9 @@ import capitalize from "../utils"
 
 import {Context} from "./../Context"
 
+import "./../css/PokemonDetail.css"
+
+
 function PokemonDetail() {
     const {pokemonId} = useParams()
     const history = useHistory();

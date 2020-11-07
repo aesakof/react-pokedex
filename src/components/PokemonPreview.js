@@ -5,6 +5,8 @@ import capitalize from "../utils"
 
 import {Context} from "./../Context"
 
+import "./../css/PokemonPreview.css"
+
 
 function PokemonPreview(props) {
     const [pokemonInfo, setPokemonInfo] = useState(null)

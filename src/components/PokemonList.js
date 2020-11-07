@@ -4,7 +4,10 @@ import Select from 'react-select';
 import PokemonPreview from "./PokemonPreview"
 import {Context} from "./../Context"
 
-const options = [
+import "./../css/PokemonList.css"
+
+
+const type_options = [
     { value: 'none', label: 'None'},
     { value: 'normal', label: 'Normal' },
     { value: 'fire', label: 'Fire' },
@@ -25,6 +28,17 @@ const options = [
     { value: 'steel', label: 'Steel' },
     { value: 'fairy', label: 'Fairy' },
 ];
+
+const generation_options = [
+    { value: 'i', label: 'I'},
+    { value: 'ii', label: 'II'},
+    { value: 'iii', label: 'III'},
+    { value: 'iv', label: 'IV'},
+    { value: 'v', label: 'V'},
+    { value: 'vi', label: 'VI'},
+    { value: 'vii', label: 'VII'},
+    { value: 'viii', label: 'VIII'},
+]
 
 function PokemonList(props) {
     const { pokemon, setPage, prevUrl, nextUrl, setType, type } = useContext(Context)
@@ -53,9 +67,15 @@ function PokemonList(props) {
                 <label id='filter-label'>Filter By Type:</label>
                 <Select
                     className="type-select"
-                    options={options}
+                    options={type_options}
                     onChange={handleChange}
                 />
+                {/* <label id='filter-label'>Filter By Generation:</label>
+                <Select
+                    className="gen-select"
+                    options={generation_options}
+                    onChange={handleChange}
+                /> */}
             </div>
         
             <div className="pokemon-list">
