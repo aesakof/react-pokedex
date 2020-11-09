@@ -14,7 +14,7 @@ function PokemonPreview(props) {
 
     const {favorites, addFavorite, removeFavorite} = useContext(Context)
 
-    const name = capitalize(props.pokemon.name)
+    //const name = capitalize(props.pokemon.name)
     const url = props.pokemon.url
 
     useEffect(() => {
@@ -59,7 +59,7 @@ function PokemonPreview(props) {
                 <div style={backgroundStyle(types)} className="pokemon-preview">
                     <div className="preview-header">
                         <Link to={`/pokemon/${pokemonInfo.id}`} className='preview-link'>
-                            <h3>{name}</h3>
+                            <h3>{capitalize(pokemonInfo.name)}</h3>
                         </Link>
                         <div className="preview-heart">
                             {heartIcon()}

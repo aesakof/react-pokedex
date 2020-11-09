@@ -9,9 +9,19 @@ function ContextProvider({children}) {
     const [prevUrl, setPrevUrl] = useState()
     const [favorites, setFavorites] = useState([])
     const [type, setType] = useState("none")
+    const [gen, setGen] = useState("none")
     
     useEffect(() => {
-        fetch(currentUrl)
+        if(currentUrl === "generation_filter") {
+            const { genStart, genEnd } = genBoundaries(gen)
+            let genList = []
+            for(let i = genStart; i <= genEnd; i++) {
+                genList = [...genList, { "name": i, "url": `https://pokeapi.co/api/v2/pokemon/${i}/`}]
+            }
+            setPokemon(genList)
+
+        } else {
+            fetch(currentUrl)
             .then(res => res.json())
             .then(data => {
                 if(type === "none") {
@@ -23,6 +33,8 @@ function ContextProvider({children}) {
                 }
                 
             })
+        }
+        
     }, [currentUrl])
 
     function setPage(url) {
@@ -48,11 +60,52 @@ function ContextProvider({children}) {
             setPage,
             pokemon,
             setType,
-            type
+            type,
+            gen,
+            setGen
         }}>
             {children}
         </Context.Provider>
     )
+}
+
+function genBoundaries(gen) {
+    let genStart, genEnd = 0
+    switch(gen) {
+        case "i":
+            genStart = 1
+            genEnd = 151
+            break
+        case "ii":
+            genStart = 152
+            genEnd = 251
+            break
+        case "iii":
+            genStart = 252
+            genEnd = 386
+            break
+        case "iv":
+            genStart = 387
+            genEnd = 493
+            break
+        case "v":
+            genStart = 494
+            genEnd = 649
+            break
+        case "vi":
+            genStart = 650
+            genEnd = 721
+            break
+        case "vii":
+            genStart = 722
+            genEnd = 809
+            break
+        case "viii":
+            genStart = 810
+            genEnd = 898
+            break
+    }
+    return { genStart, genEnd }
 }
 
 export {ContextProvider, Context}
