@@ -8,12 +8,12 @@ function ContextProvider({children}) {
     const [nextUrl, setNextUrl] = useState()
     const [prevUrl, setPrevUrl] = useState()
     const [favorites, setFavorites] = useState([])
-    const [type, setType] = useState("none")
-    const [gen, setGen] = useState("none")
+    const [type, setType] = useState({ value: 'none', label: 'None'})
+    const [gen, setGen] = useState({ value: 'none', label: 'None'})
     
     useEffect(() => {
-        if(currentUrl === "generation_filter") {
-            const { genStart, genEnd } = genBoundaries(gen)
+        if(currentUrl.startsWith("generation")) {
+            const { genStart, genEnd } = genBoundaries(gen.value)
             let genList = []
             for(let i = genStart; i <= genEnd; i++) {
                 genList = [...genList, { "name": i, "url": `https://pokeapi.co/api/v2/pokemon/${i}/`}]
@@ -24,7 +24,7 @@ function ContextProvider({children}) {
             fetch(currentUrl)
             .then(res => res.json())
             .then(data => {
-                if(type === "none") {
+                if(type.value === "none") {
                     setPrevUrl(data.previous)
                     setNextUrl(data.next)
                     setPokemon(data.results.map(p => p))
@@ -35,7 +35,7 @@ function ContextProvider({children}) {
             })
         }
         
-    }, [currentUrl])
+    }, [currentUrl, type, gen])
 
     function setPage(url) {
         setCurrentUrl(url)

@@ -14,7 +14,6 @@ function PokemonPreview(props) {
 
     const {favorites, addFavorite, removeFavorite} = useContext(Context)
 
-    //const name = capitalize(props.pokemon.name)
     const url = props.pokemon.url
 
     useEffect(() => {
