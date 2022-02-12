@@ -141,7 +141,7 @@ function PokemonDetail() {
                     </div>
                     
                     <div className="detail-pic-container">
-                        <img className="detail-pic" src={`https://pokeres.bastionbot.org/images/pokemon/${pokemonInfo.id}.png`} />
+                        <img className="detail-pic" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonInfo.id}.png`} />
                     </div>
 
                     <div className="detail-main-info">

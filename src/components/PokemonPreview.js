@@ -66,7 +66,7 @@ function PokemonPreview(props) {
                     </div>
                     <Link to={`/pokemon/${pokemonInfo.id}`} className='preview-link'>
                         <div className="preview-pic-container">
-                            <img className="preview-pic" src={`https://pokeres.bastionbot.org/images/pokemon/${pokemonInfo.id}.png`} />
+                            <img className="preview-pic" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonInfo.id}.png`} />
                         </div>
                         <h5>#{pokemonInfo.id}</h5>
                         {
