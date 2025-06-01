@@ -7,7 +7,7 @@ import { ContextProvider } from "./Context"
 
 ReactDOM.render(
     <ContextProvider>
-        <Router>
+        <Router basename="/pokedex">
             <App />
         </Router>
     </ContextProvider>,
