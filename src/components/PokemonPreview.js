@@ -5,6 +5,8 @@ import capitalize from "../utils"
 
 import {Context} from "./../Context"
 
+import { FaHeart, FaRegHeart } from "react-icons/fa";
+
 import "./../css/PokemonPreview.css"
 
 
@@ -43,9 +45,9 @@ function PokemonPreview(props) {
     function heartIcon() {
         const inFavorites = favorites.some(mon => mon.name === pokemonInfo.name)
         if(inFavorites) {
-            return (<i className="fas fa-heart preview" onClick={() => removeFavorite(pokemonInfo.name)}></i>)
+            return (<FaHeart onClick={() => removeFavorite(pokemonInfo.name)}/>)
         } else {
-            return (<i className="far fa-heart preview" onClick={() => addFavorite(pokemonInfo.name,pokemonInfo.id)}></i>)
+            return (<FaRegHeart onClick={() => addFavorite(pokemonInfo.name,pokemonInfo.id)}/>)
         }  
     }
 
